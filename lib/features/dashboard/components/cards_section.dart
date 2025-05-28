@@ -40,9 +40,10 @@ class _CardsSectionState extends State<CardsSection> {
                   );
                 },
                 child: CommonCreditCard(
+                  name: (index == 0) ? "RCBC FLEX VISA" : "METROBANK MFREE",
                   network: (index == 0) ? CreditCardNetworkEnum.visa : CreditCardNetworkEnum.mastercard,
-                  totalCreditLimit: 200000,
-                  totalSpent: 30000,
+                  totalCreditLimit: (index == 0) ? 200000 : 500000,
+                  totalSpent: (index == 0) ? 30000 : 5123.42,
                   backgroundColor: (index == 0) ? Colors.brown.shade900 : Colors.blue.shade900,
                 ),
               );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gastu_card/core/utils/extensions/double_ext.dart';
 import 'package:gastu_card/core/utils/extensions/num_ext.dart';
+import 'package:gastu_card/core/utils/extensions/string_ext.dart';
 
 import '../../app/styles/dimension.dart';
 import '../constants/enums/credit_card_network_enum.dart';
@@ -8,6 +9,7 @@ import '../constants/enums/credit_card_network_enum.dart';
 class CommonCreditCard extends StatelessWidget {
   const CommonCreditCard({
     super.key,
+    required this.name,
     this.network = CreditCardNetworkEnum.visa,
     this.totalCreditLimit = 0,
     this.totalSpent = 0,
@@ -15,6 +17,7 @@ class CommonCreditCard extends StatelessWidget {
   });
 
   final CreditCardNetworkEnum network;
+  final String name;
   final double totalSpent;
   final double totalCreditLimit;
   final Color backgroundColor;
@@ -42,9 +45,9 @@ class CommonCreditCard extends StatelessWidget {
               Dimension.paddingMedium.width(),
               Expanded(
                 child: Text(
-                  "Union Bank Platinum",
+                  name.capitalize ?? "",
                   style: TextStyle(
-                    fontSize: Dimension.fontSmall,
+                    fontSize: Dimension.fontMedium,
                     color: Colors.white,
                     fontWeight: FontWeight.w600
                   ),

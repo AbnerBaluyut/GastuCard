@@ -7,7 +7,7 @@ import '../../shared/widgets/common_scaffold.dart';
 import 'bloc/dashboard_bloc.dart';
 import 'components/cards_section.dart';
 import 'components/monthly_summary_section.dart';
-import 'components/recent_transactions.dart';
+import 'components/recent_transactions_section.dart';
 
 class DashboardPageWrapper extends StatelessWidget {
   const DashboardPageWrapper({super.key});
@@ -56,8 +56,8 @@ class _DashboardPageState extends State<DashboardPage> {
               totalDue: 16000,
             ),
             Dimension.spacingLarge.height(),
-            RecentTransactions(),
-            Dimension.spacingPetaLarge.height(),
+            RecentTransactionsSection(),
+            Dimension.spacingGigaLarge.height(),
           ],
         ),
       ),

@@ -34,13 +34,13 @@ class MonthlySummarySection extends StatelessWidget {
             Text(
               "Monthly Summary",
               style: TextStyle(
-                fontSize: Dimension.fontLarge,
+                fontSize: Dimension.fontMedium,
                 fontWeight: FontWeight.w600
               ),
             ),
             Dimension.spacingMedium.height(),
             _buildSummaryRow(Icons.receipt_long, "Statement Date", statementDate.format(pattern: "MMM dd, yyyy")),
-            _buildSummaryRow(Icons.event, "Payment Due", statementDate.format(pattern: "MMM dd, yyyy")),
+            _buildSummaryRow(Icons.event, "Payment Due Date", statementDate.format(pattern: "MMM dd, yyyy")),
             _buildSummaryRow(Icons.account_balance_wallet, "Total Due", totalDue.toCurrency()),
           ],
         ),
