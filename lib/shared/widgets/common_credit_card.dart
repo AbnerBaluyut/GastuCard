@@ -136,7 +136,7 @@ class CommonCreditCard extends StatelessWidget {
               ],
             ),
           ),
-          Dimension.paddingSmall.height()
+          Dimension.paddingMedium.height()
         ],
       ),
     );
