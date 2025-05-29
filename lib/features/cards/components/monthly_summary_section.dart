@@ -21,7 +21,6 @@ class MonthlySummarySection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       color: Colors.white,
-      elevation: Dimension.elevationLow,
       margin: const EdgeInsets.symmetric(
         horizontal: Dimension.marginMedium
       ),
@@ -39,8 +38,8 @@ class MonthlySummarySection extends StatelessWidget {
               ),
             ),
             Dimension.spacingMedium.height(),
-            _buildSummaryRow(Icons.receipt_long, "Statement Date", statementDate.format(pattern: "MMM dd, yyyy")),
-            _buildSummaryRow(Icons.event, "Payment Due Date", statementDate.format(pattern: "MMM dd, yyyy")),
+            _buildSummaryRow(Icons.receipt_long, "Statement Due", statementDate.format(pattern: "MMM dd, yyyy")),
+            _buildSummaryRow(Icons.event, "Payment Due", statementDate.format(pattern: "MMM dd, yyyy")),
             _buildSummaryRow(Icons.account_balance_wallet, "Total Due", totalDue.toCurrency()),
           ],
         ),
@@ -53,7 +52,7 @@ class MonthlySummarySection extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 6),
       child: Row(
         children: [
-          Icon(icon, size: 20, color: Colors.blueGrey),
+          Icon(icon, size: 20, color: Colors.grey.shade800),
           Dimension.spacingSmall.width(),
           Expanded(
             child: Text(

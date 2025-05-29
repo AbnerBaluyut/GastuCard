@@ -11,8 +11,9 @@ class Dimension {
   static const double marginGigaLarge = 96.0;
   static const double marginTeraLarge = 112.0;
   static const double marginPetaLarge = 128.0;
-
-  static const double paddingSmall = 8.0;
+  
+  static const double paddingSmall = 4.0;
+  static const double paddingExtraSmall = 8.0;
   static const double paddingMedium = 16.0;
   static const double paddingLarge = 24.0;
   static const double paddingExtraLarge = 32.0;

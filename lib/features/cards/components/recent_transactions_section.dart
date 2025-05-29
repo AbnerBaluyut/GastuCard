@@ -3,6 +3,7 @@ import 'package:gastu_card/core/utils/extensions/date_ext.dart';
 import 'package:gastu_card/core/utils/extensions/double_ext.dart';
 import 'package:gastu_card/core/utils/extensions/num_ext.dart';
 
+import '../../../app/styles/custom_colors.dart';
 import '../../../app/styles/dimension.dart';
 
 class RecentTransactionsSection extends StatelessWidget {
@@ -13,7 +14,6 @@ class RecentTransactionsSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       color: Colors.white,
-      elevation: Dimension.elevationLow,
       margin: const EdgeInsets.symmetric(
         horizontal: Dimension.marginMedium
       ),
@@ -44,7 +44,6 @@ class RecentTransactionsSection extends StatelessWidget {
                   child: Text(
                     "See All",
                     style: TextStyle(
-                      color: Colors.blue.shade500,
                       fontSize: Dimension.fontMedium,
                       fontWeight: FontWeight.w400
                     ),
@@ -61,8 +60,8 @@ class RecentTransactionsSection extends StatelessWidget {
                 return Row(
                   children: [
                     CircleAvatar(
-                      backgroundColor: Colors.blue.shade50,
-                      child: Icon(Icons.local_cafe, color: Colors.blue),
+                      backgroundColor: CustomColors.primaryColor,
+                      child: Icon(Icons.restaurant),
                     ),
                     Dimension.spacingSmall.width(),
                     Expanded(
@@ -77,7 +76,7 @@ class RecentTransactionsSection extends StatelessWidget {
                             )
                           ),
                           Text(
-                            "Category: Food & Drinks",
+                            "Category: Food",
                             style: const TextStyle(
                               fontWeight: FontWeight.w500,
                               fontSize: Dimension.fontExtraSmall,

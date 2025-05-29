@@ -16,4 +16,8 @@ class CustomColors {
 
   static const blueGray = Color(0xFF9DB2CE);
   static const neutral200 = Color(0xFFF1F2F4);
+
+  static const charcoalGray = Color(0xFF333333);
+  static const gold = Color(0xFFFBC02D);
+  static const emeraldGreen = Color(0xFF2E7D32);
 }

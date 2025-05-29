@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gastu_card/core/utils/extensions/double_ext.dart';
 import 'package:gastu_card/core/utils/extensions/num_ext.dart';
-import 'package:gastu_card/core/utils/extensions/string_ext.dart';
 
 import '../../app/styles/dimension.dart';
 import '../constants/enums/credit_card_network_enum.dart';
@@ -26,12 +26,14 @@ class CommonCreditCard extends StatelessWidget {
   Widget build(BuildContext context) {
     
     return Card(
-      elevation: Dimension.elevationLow,
+      elevation: Dimension.elevationMedium,
       color: backgroundColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(14.0)
       ),
-      margin: EdgeInsets.zero,
+      margin: EdgeInsets.only(
+        bottom: Dimension.marginMedium
+      ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -45,7 +47,7 @@ class CommonCreditCard extends StatelessWidget {
               Dimension.paddingMedium.width(),
               Expanded(
                 child: Text(
-                  name.capitalize ?? "",
+                  name,
                   style: TextStyle(
                     fontSize: Dimension.fontMedium,
                     color: Colors.white,
@@ -100,7 +102,7 @@ class CommonCreditCard extends StatelessWidget {
                 Row(
                   spacing: Dimension.spacingSmall,
                   children: [
-                    Icon(Icons.account_balance_wallet, color: Colors.white),
+                    Icon(FontAwesomeIcons.wallet, color: Colors.white, size: 18.0),
                     Expanded(
                       child: Text(
                         "Available Credit: ${totalCreditLimit.toCurrency()}",
@@ -118,10 +120,10 @@ class CommonCreditCard extends StatelessWidget {
                 Row(
                   spacing: Dimension.spacingSmall,
                   children: [
-                    Icon(Icons.trending_up, color: Colors.white),
+                    Icon(Icons.trending_up, color: Colors.white, size: 18.0,),
                     Expanded(
                       child: Text(
-                        "Spent: ${totalSpent.toCurrency()}",
+                        "Total Spent: ${totalSpent.toCurrency()}",
                         style: TextStyle(
                           fontSize: Dimension.fontSmall,
                           color: Colors.white,
