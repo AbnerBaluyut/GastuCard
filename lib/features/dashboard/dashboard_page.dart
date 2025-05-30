@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import '../../app/routes/app_routes.dart';
 import '../../app/styles/dimension.dart';
 import '../../shared/widgets/common_scaffold.dart';
 import '../insights/insights_content.dart';
@@ -44,7 +46,9 @@ class _DashboardPageState extends State<DashboardPage> with SingleTickerProvider
       appBar: DashboardAppBar(
         actionWidgets: [
           if (_tabIndex == 2) IconButton(
-            onPressed: () {}, 
+            onPressed: () {
+              context.push(AppRoutes.addTransaction);
+            }, 
             icon: Icon(Icons.add)
           ),
           IconButton(

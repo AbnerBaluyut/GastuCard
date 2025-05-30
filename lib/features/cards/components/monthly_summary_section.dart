@@ -62,7 +62,7 @@ class MonthlySummarySection extends StatelessWidget {
               style: TextStyle(
                 fontSize: Dimension.fontSmall,
                 fontWeight: FontWeight.w500,
-                color: Colors.black
+                color: Colors.blueGrey.shade600
               ),                
             ),
           ),
