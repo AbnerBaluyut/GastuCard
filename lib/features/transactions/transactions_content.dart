@@ -124,11 +124,10 @@ class _TransactionsContentState extends State<TransactionsContent> {
           ),
           Dimension.spacingLarge.height(),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: const [
               SummaryItem(title: 'Total Spent', value: '₱12,800'),
-              SummaryItem(title: 'Transactions', value: '16'),
-              SummaryItem(title: 'Biggest Spend', value: '₱3,200'),
+              SummaryItem(title: 'Transactions', value: '16')
             ],
           ),
           Dimension.spacingMedium.height(),
