@@ -3,7 +3,6 @@ import 'package:gastu_card/core/utils/extensions/date_ext.dart';
 import 'package:gastu_card/core/utils/extensions/double_ext.dart';
 import 'package:gastu_card/core/utils/extensions/num_ext.dart';
 
-import '../../../app/styles/custom_colors.dart';
 import '../../../app/styles/dimension.dart';
 
 class RecentTransactionsSection extends StatelessWidget {
@@ -14,6 +13,7 @@ class RecentTransactionsSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       color: Colors.white,
+      elevation: 0,
       margin: const EdgeInsets.symmetric(
         horizontal: Dimension.marginMedium
       ),
@@ -32,7 +32,8 @@ class RecentTransactionsSection extends StatelessWidget {
                     "Recent Transactions",
                     style: TextStyle(
                       fontSize: Dimension.fontMedium,
-                      fontWeight: FontWeight.w600
+                      fontWeight: FontWeight.w700,
+                      color: Colors.teal.shade800
                     ),
                   ),
                 ),
@@ -45,7 +46,8 @@ class RecentTransactionsSection extends StatelessWidget {
                     "See All",
                     style: TextStyle(
                       fontSize: Dimension.fontMedium,
-                      fontWeight: FontWeight.w400
+                      fontWeight: FontWeight.w500,
+                      color: Colors.teal.shade800
                     ),
                   )
                 )
@@ -57,56 +59,74 @@ class RecentTransactionsSection extends StatelessWidget {
               padding: EdgeInsets.zero,
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
-                return Row(
-                  children: [
-                    CircleAvatar(
-                      backgroundColor: CustomColors.primaryColor,
-                      child: Icon(Icons.restaurant),
-                    ),
-                    Dimension.spacingSmall.width(),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                return Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: Dimension.paddingSmall
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      CircleAvatar(
+                        backgroundColor: Colors.grey.shade200,
+                        child: Icon(Icons.restaurant_menu, color: Colors.teal),
+                      ),
+                      Dimension.spacingSmall.width(),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Krispy Kreme",
+                              style: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                fontSize: Dimension.fontMedium,
+                                color: Colors.teal.shade800
+                              )
+                            ),
+                            Text(
+                              "Food", 
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: Dimension.fontSmall,
+                                color: Colors.blueGrey
+                              )
+                            ),
+                          ],
+                        ),
+                      ),
+                      Dimension.spacingMedium.width(),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            "Krispy Kreme", 
+                            "-${1000.toCurrency()}",
+                            style: TextStyle(
+                              fontWeight: FontWeight.w700,
+                              color: Colors.teal.shade800,
+                              fontSize: Dimension.fontMedium
+                            ),
+                          ),
+                          Text(
+                            DateTime.now().format(pattern: "MMM dd"),
                             style: const TextStyle(
                               fontWeight: FontWeight.w500,
+                              color: Colors.blueGrey,
                               fontSize: Dimension.fontSmall
-                            )
-                          ),
-                          Text(
-                            "Category: Food",
-                            style: const TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: Dimension.fontExtraSmall,
-                              color: Colors.grey
-                            )
-                          ),
-                          Text(
-                            "Date: ${DateTime.now().format(pattern: "MMM dd, yyyy")}",
-                            style: const TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: Dimension.fontExtraSmall,
-                              color: Colors.grey
-                            )
+                            ),
                           )
                         ],
                       ),
-                    ),
-                    Dimension.spacingMedium.width(),
-                    Text(
-                      "-${1000.toCurrency()}",
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: Colors.red
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 );
               },
               separatorBuilder: (context, index) {
-                return Dimension.spacingMedium.height();
+                return Divider(
+                  color: Colors.grey,
+                  thickness: 0.2,
+                );
               },
               itemCount: 5,
             ),

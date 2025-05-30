@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:gastu_card/core/utils/extensions/double_ext.dart';
 import 'package:gastu_card/core/utils/extensions/num_ext.dart';
 
-import '../../../app/styles/custom_colors.dart';
 import '../../../app/styles/dimension.dart';
 
 class CreditUsageBar extends StatelessWidget {
@@ -22,19 +21,24 @@ class CreditUsageBar extends StatelessWidget {
 
     return Card(
       color: Colors.white,
+      elevation: 0,
       child: Padding(
         padding: const EdgeInsets.all(Dimension.paddingMedium),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
+            Text(
               'Spending vs Credit Limit',
-              style: TextStyle(fontSize: Dimension.fontMedium, fontWeight: FontWeight.w600)
+              style: TextStyle(
+                fontSize: Dimension.fontMedium,
+                fontWeight: FontWeight.w700,
+                color: Colors.teal.shade800
+              ),
             ),
             Dimension.spacingMedium.height(),
             LinearProgressIndicator(
               value: percentUsed,
-              color: CustomColors.primaryColor,
+              color: Colors.teal.shade800,
               backgroundColor: Colors.grey.shade300,
               minHeight: 14.0,
               borderRadius: BorderRadius.circular(Dimension.radiusMedium),
@@ -43,9 +47,9 @@ class CreditUsageBar extends StatelessWidget {
             Text(
               '${spent.toCurrency()} used of ${limit.toCurrency()}',
               style: TextStyle(
-                color: Colors.grey.shade700,
+                color: Colors.blueGrey,
                 fontSize: Dimension.fontSmall,
-                fontWeight: FontWeight.w400
+                fontWeight: FontWeight.w500
               ),
             ),
             Text(
@@ -53,7 +57,7 @@ class CreditUsageBar extends StatelessWidget {
               style: TextStyle(
                 color: Colors.green.shade700,
                 fontSize: Dimension.fontSmall,
-                fontWeight: FontWeight.w500
+                fontWeight: FontWeight.w600
               ),
             ),
           ],

@@ -78,20 +78,20 @@ class _CardsSectionState extends State<CardsSection> {
           },
           itemCount: widget.cards.length,
         ),
-        SmoothPageIndicator(
+        if (widget.cards.length > 1) SmoothPageIndicator(
           controller: _pageController,
           count: widget.cards.length,
           effect: ScrollingDotsEffect(
             dotHeight: 8,
             dotWidth: 8,
             activeDotScale: 1.5,
-            activeDotColor: Colors.black,
+            activeDotColor: Colors.teal.shade900,
             dotColor: Colors.grey.shade400,
           ),
         ),
-        Dimension.spacingMedium.height(),
+        if (widget.cards.length > 1) Dimension.spacingMedium.height(),
         CommonElevatedButton(
-          backgroundColor: Colors.grey.shade800,
+          backgroundColor: Colors.teal.shade900,
           onButtonPressed: () {},
           borderRadius: BorderRadius.circular(100.0),
           padding: EdgeInsets.symmetric(

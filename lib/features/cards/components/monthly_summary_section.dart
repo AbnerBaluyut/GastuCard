@@ -21,6 +21,7 @@ class MonthlySummarySection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       color: Colors.white,
+      elevation: 0,
       margin: const EdgeInsets.symmetric(
         horizontal: Dimension.marginMedium
       ),
@@ -34,7 +35,8 @@ class MonthlySummarySection extends StatelessWidget {
               "Monthly Summary",
               style: TextStyle(
                 fontSize: Dimension.fontMedium,
-                fontWeight: FontWeight.w600
+                fontWeight: FontWeight.w700,
+                color: Colors.teal.shade800
               ),
             ),
             Dimension.spacingMedium.height(),
@@ -52,22 +54,24 @@ class MonthlySummarySection extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 6),
       child: Row(
         children: [
-          Icon(icon, size: 20, color: Colors.grey.shade800),
+          Icon(icon, size: 20, color: Colors.teal.shade800),
           Dimension.spacingSmall.width(),
           Expanded(
             child: Text(
               label, 
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: Dimension.fontSmall,
-                fontWeight: FontWeight.w400
+                fontWeight: FontWeight.w500,
+                color: Colors.black
               ),                
             ),
           ),
           Text(
             value,
-            style: const TextStyle(
-              fontWeight: FontWeight.w600,
-              fontSize: Dimension.fontSmall
+            style: TextStyle(
+              fontWeight: FontWeight.w700,
+              fontSize: Dimension.fontSmall,
+              color: Colors.teal.shade800
             ),
           ),
         ],

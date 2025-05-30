@@ -4,7 +4,7 @@ import '../../../app/styles/dimension.dart';
 
 class DashboardAppBar extends AppBar {
   
-  DashboardAppBar({super.key, this.bottomTabs, required this.onTapSettings}) : super(
+  DashboardAppBar({super.key, this.bottomTabs, required this.actionWidgets}) : super(
     title: Text(
       "Hello, Gastuser!",
       style: TextStyle(
@@ -16,14 +16,9 @@ class DashboardAppBar extends AppBar {
     backgroundColor: Colors.transparent,
     centerTitle: false,
     bottom: bottomTabs,
-    actions: [
-      IconButton(
-        onPressed: () {}, 
-        icon: Icon(Icons.settings)
-      )
-    ]
+    actions: actionWidgets
   );
 
   final PreferredSizeWidget? bottomTabs;
-  final VoidCallback onTapSettings;
+  final List<Widget> actionWidgets;
 }

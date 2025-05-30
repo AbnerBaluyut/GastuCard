@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../app/styles/custom_colors.dart';
 import '../../app/styles/dimension.dart';
 import '../../shared/widgets/common_scaffold.dart';
 import '../insights/insights_content.dart';
+import '../transactions/transactions_content.dart';
 import 'bloc/dashboard_bloc.dart';
 import '../cards/cards_content.dart';
 import 'components/dashboard_appbar.dart';
@@ -29,6 +29,8 @@ class _DashboardPageState extends State<DashboardPage> with SingleTickerProvider
 
   TabController? _tabController;
 
+  var _tabIndex = 0;
+
   @override
   void initState() {
     _tabController = TabController(length: 3, vsync: this);
@@ -38,8 +40,18 @@ class _DashboardPageState extends State<DashboardPage> with SingleTickerProvider
   @override
   Widget build(BuildContext context) {
     return CommonScaffold(
+      backgroundColor: Colors.grey.shade200,
       appBar: DashboardAppBar(
-        onTapSettings: () {},
+        actionWidgets: [
+          if (_tabIndex == 2) IconButton(
+            onPressed: () {}, 
+            icon: Icon(Icons.add)
+          ),
+          IconButton(
+            onPressed: () {}, 
+            icon: Icon(Icons.settings)
+          )
+        ]
       ),
       body: Stack(
         alignment: Alignment.bottomCenter,
@@ -50,7 +62,7 @@ class _DashboardPageState extends State<DashboardPage> with SingleTickerProvider
             children: [
               CardsContent(),
               InsightsContent(),
-              _buildBlank("Transactions"),
+              TransactionsContent(),
             ]
           ),
           Theme(
@@ -76,7 +88,7 @@ class _DashboardPageState extends State<DashboardPage> with SingleTickerProvider
               ),
               child: TabBar(
                 controller: _tabController,
-                labelColor: CustomColors.primaryColor,
+                labelColor: Colors.teal.shade700,
                 unselectedLabelColor: Colors.black54,
                 indicatorColor: Colors.transparent,
                 indicatorSize: TabBarIndicatorSize.tab,
@@ -84,6 +96,11 @@ class _DashboardPageState extends State<DashboardPage> with SingleTickerProvider
                 labelPadding: EdgeInsets.zero,
                 padding: EdgeInsets.zero,
                 dividerColor: Colors.transparent,
+                onTap: (index) {
+                  setState(() {
+                    _tabIndex = index;
+                  });
+                },
                 tabs: [
                   Tab(icon: Icon(Icons.credit_card), text: 'Cards'),
                   Tab(icon: Icon(Icons.bar_chart), text: 'Insights'),
@@ -93,14 +110,7 @@ class _DashboardPageState extends State<DashboardPage> with SingleTickerProvider
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _buildBlank(String text) {
-    return SizedBox(
-      height: MediaQuery.sizeOf(context).height,
-      child: Center(child: Text(text)),
+      )
     );
   }
 }
