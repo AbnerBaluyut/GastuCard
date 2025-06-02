@@ -1,38 +1,86 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gastu_card/core/utils/extensions/context_ext.dart';
 import 'package:gastu_card/core/utils/extensions/double_ext.dart';
 
 import '../../app/styles/dimension.dart';
+import '../../core/services/database/app_database.dart' as db;
+import 'bloc/cards_bloc.dart';
 import 'components/cards_section.dart';
 import 'components/monthly_summary_section.dart';
 import 'components/recent_transactions_section.dart';
 
-class CardsContent extends StatelessWidget {
-  const CardsContent({super.key});
+class CardsContentWrapper extends StatelessWidget {
+  const CardsContentWrapper({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          Dimension.spacingMedium.height(),
-          CardsSection(
-            cards: [
-              0,
-              1,
-              2
-            ],
-          ),
-          Dimension.spacingLarge.height(),
-          MonthlySummarySection(
-            statementDate: DateTime.now(),
-            paymentDueDate: DateTime.now(),
-            totalDue: 16000,
-          ),
-          Dimension.spacingLarge.height(),
-          RecentTransactionsSection(),
-          Dimension.spacingTeraLarge.height(),
-        ],
-      )
+    
+    return BlocProvider(
+      create: (_) => CardsBloc(),
+      child: _CardsContent(),
     );
   }
+}
+
+class _CardsContent extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => _CardsContentState();
+}
+
+class _CardsContentState extends State<_CardsContent> with AutomaticKeepAliveClientMixin {
+
+  final List<db.Card> _cards = <db.Card>[];
+
+  @override
+  void initState() {
+    context.read<CardsBloc>().add(GetCardsEvent());
+    super.initState();
+  }
+  
+  @override
+  Widget build(BuildContext context) {
+    super.build(context);
+    return BlocConsumer<CardsBloc, CardsState>(
+      listener: (context, state) {
+
+        if (state is LoadingCardsState) {
+          if (state.isLoading) {
+            context.showLoadingDialog();
+          } else {
+            context.dismissDialog();
+          }
+        }
+      },
+      builder: (context, state) {
+
+        if (state is GetCardsState) {
+          _cards..clear()..addAll(state.cards);
+        }
+
+        return SingleChildScrollView(
+          child: Column(
+            children: [
+              Dimension.spacingMedium.height(),
+              CardsSection(
+                cards: _cards,
+              ),
+              Dimension.spacingLarge.height(),
+              MonthlySummarySection(
+                statementDate: DateTime.now(),
+                paymentDueDate: DateTime.now(),
+                totalDue: 16000,
+              ),
+              Dimension.spacingLarge.height(),
+              RecentTransactionsSection(),
+              Dimension.spacingTeraLarge.height(),
+            ],
+          )
+        );
+      }
+    );
+  }
+
+  @override
+  bool get wantKeepAlive => true;
 }

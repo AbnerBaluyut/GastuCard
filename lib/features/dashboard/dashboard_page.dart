@@ -1,25 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import '../../app/routes/app_routes.dart';
 import '../../app/styles/dimension.dart';
 import '../../shared/widgets/common_scaffold.dart';
 import '../insights/insights_content.dart';
 import '../transactions/transactions_content.dart';
-import 'bloc/dashboard_bloc.dart';
 import '../cards/cards_content.dart';
 import 'components/dashboard_appbar.dart';
-
-class DashboardPageWrapper extends StatelessWidget {
-  const DashboardPageWrapper({super.key});
-  @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => DashboardBloc(),
-      child: DashboardPage(),
-    );
-  }
-}
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
@@ -32,6 +19,12 @@ class _DashboardPageState extends State<DashboardPage> with SingleTickerProvider
   TabController? _tabController;
 
   var _tabIndex = 0;
+
+  final _contents = [
+    CardsContentWrapper(),
+    InsightsContent(),
+    TransactionsContent(),
+  ];
 
   @override
   void initState() {
@@ -63,11 +56,7 @@ class _DashboardPageState extends State<DashboardPage> with SingleTickerProvider
           TabBarView(
             controller: _tabController,
             physics: const NeverScrollableScrollPhysics(),
-            children: [
-              CardsContent(),
-              InsightsContent(),
-              TransactionsContent(),
-            ]
+            children: _contents
           ),
           Theme(
             data: ThemeData(

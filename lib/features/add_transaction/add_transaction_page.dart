@@ -1,11 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gastu_card/core/utils/extensions/double_ext.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../app/styles/dimension.dart';
 import '../../shared/widgets/common_elevated_button.dart';
 import '../../shared/widgets/common_scaffold.dart';
+import '../../shared/widgets/common_text_field.dart';
+import 'bloc/add_transaction_bloc.dart';
 import 'components/add_transaction_appbar.dart';
+
+class AddTransactionPageWrapper extends StatelessWidget {
+  const AddTransactionPageWrapper({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (_) => AddTransactionBloc(),
+      child: AddTransactionPage(),
+    );
+  }
+}
 
 class AddTransactionPage extends StatefulWidget {
   const AddTransactionPage({super.key});
@@ -65,15 +79,18 @@ class _AddTransactionPageState extends State<AddTransactionPage> {
 
 
             // --- Amount ---
-            const Text("Amount", style: TextStyle(fontWeight: FontWeight.bold)),
-            Dimension.spacingSmall.height(),
-            TextFormField(
+            CommonTextField(
               keyboardType: TextInputType.number,
-              decoration: const InputDecoration(
-                prefixIcon: Icon(Icons.attach_money),
-                border: OutlineInputBorder(),
-                hintText: "Enter amount",
+              helperText: "Amount",
+              prefixIcon: Padding(
+                padding: EdgeInsets.symmetric(
+                  vertical: Dimension.spacingSmall,
+                  horizontal: Dimension.paddingMedium
+                ),
+                child: Text("₱", style: TextStyle(fontSize: 24.0)),
               ),
+              border: OutlineInputBorder(),
+              hintText: "Enter amount",
             ),
             Dimension.spacingLarge.height(),
 
@@ -95,10 +112,9 @@ class _AddTransactionPageState extends State<AddTransactionPage> {
 
 
             // --- Date ---
-            const Text("Date", style: TextStyle(fontWeight: FontWeight.bold)),
-            Dimension.spacingSmall.height(),
-            TextFormField(
+            CommonTextField(
               readOnly: true,
+              helperText: "Date",
               onTap: () async {
                 final now = DateTime.now();
                 await showDatePicker(
@@ -108,11 +124,9 @@ class _AddTransactionPageState extends State<AddTransactionPage> {
                   lastDate: now,
                 );
               },
-              decoration: const InputDecoration(
-                prefixIcon: Icon(Icons.calendar_today),
-                border: OutlineInputBorder(),
-                hintText: "Select date",
-              ),
+              prefixIcon: Icon(Icons.calendar_today),
+              border: OutlineInputBorder(),
+              hintText: "Select date",
             ),
             Dimension.spacingLarge.height(),
 
@@ -148,33 +162,32 @@ class _AddTransactionPageState extends State<AddTransactionPage> {
                   if (val != null) setState(() => months = val);
                 },
               ),
-              
-
               Dimension.spacingLarge.height(),
-              const Text("Interest Rate (%)", style: TextStyle(fontWeight: FontWeight.bold)),
-              Dimension.spacingSmall.height(),
-              TextFormField(
+
+              CommonTextField(
                 keyboardType: TextInputType.number,
-                decoration: const InputDecoration(
-                  hintText: "e.g. 1.5",
-                  border: OutlineInputBorder(),
-                  suffixText: "%",
-                ),
+                helperText: "Interest Rate (%)",
+                hintText: "e.g. 1.5",
+                border: OutlineInputBorder(),
+                suffixText: "%",
                 onChanged: (val) {
                   // Save interest rate to a variable and recalculate
                 },
               ),
-
               Dimension.spacingLarge.height(),
-              const Text("Processing Fee", style: TextStyle(fontWeight: FontWeight.bold)),
-              Dimension.spacingSmall.height(),
-              TextFormField(
+              
+              CommonTextField(
                 keyboardType: TextInputType.number,
-                decoration: const InputDecoration(
-                  prefixIcon: Icon(Icons.attach_money),
-                  border: OutlineInputBorder(),
-                  hintText: "e.g. 200.00",
+                helperText: "Processing Fee",
+                prefixIcon: Padding(
+                  padding: EdgeInsets.symmetric(
+                    vertical: Dimension.spacingSmall,
+                    horizontal: Dimension.paddingMedium
+                  ),
+                  child: Text("₱", style: TextStyle(fontSize: 24.0)),
                 ),
+                border: OutlineInputBorder(),
+                hintText: "e.g. 200.00",
               ),
               Dimension.spacingSmall.height(),
               // Optional: show calculated monthly amount here

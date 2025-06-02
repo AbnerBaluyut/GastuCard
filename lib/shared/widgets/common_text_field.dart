@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gastu_card/core/utils/extensions/int_ext.dart';
-import '../../app/styles/custom_colors.dart';
+import '../../app/styles/dimension.dart';
 import 'common_shake_widget.dart';
 
 class CommonTextField extends StatefulWidget {
@@ -32,6 +32,9 @@ class CommonTextField extends StatefulWidget {
   final bool showScrollbar;
   final bool? enabled;
   final int? errorMaxLines; 
+  final bool readOnly;
+  final void Function()? onTap;
+  final String? suffixText;
 
   const CommonTextField({
     super.key,
@@ -61,7 +64,10 @@ class CommonTextField extends StatefulWidget {
     this.textInputAction,
     this.onFieldSubmitted,
     this.showScrollbar = false,
-    this.errorMaxLines
+    this.errorMaxLines,
+    this.readOnly = false,
+    this.onTap,
+    this.suffixText
   });
 
   @override
@@ -94,9 +100,9 @@ class CommonTextFieldState extends State<CommonTextField> {
             Text(
               widget.helperText ?? "",
               style: TextStyle(
-                fontSize: 16, 
+                fontSize: Dimension.fontMedium, 
                 fontWeight: FontWeight.w500,
-                color: CustomColors.gray
+                color: Colors.teal.shade900
               ),
             ),
             8.height()
@@ -120,6 +126,7 @@ class CommonTextFieldState extends State<CommonTextField> {
   Widget _buildTextFormField() {
 
     return TextFormField(
+      readOnly: widget.readOnly,
       enabled: widget.enabled,
       controller: widget.controller,
       focusNode: widget.focusNode,
@@ -187,10 +194,12 @@ class CommonTextFieldState extends State<CommonTextField> {
         prefix: (widget.prefixIcon != null) ? null : Padding(
           padding: EdgeInsets.only(left: 20.0),
         ),
+        suffixText: widget.suffixText,
         prefixIcon: widget.prefixIcon,
         suffixIcon: (widget.obscureText == true) ? _togglePasswordVisibility() : widget.suffixIcon,
-        contentPadding: const EdgeInsets.only(bottom: 0.0, top: 15.0, right: 6.0),
+        contentPadding: const EdgeInsets.only(bottom: 15.0, top: 15.0, right: 6.0),
       ),
+      onTap: widget.onTap,
       validator: widget.validator,
       onChanged: widget.onChanged,
       onFieldSubmitted: widget.onFieldSubmitted,

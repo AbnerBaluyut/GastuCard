@@ -60,7 +60,18 @@ dependencies:
 
   # Icons
   font_awesome_flutter: ^10.8.0
+
+  # Page Indicator
   smooth_page_indicator: ^1.2.1
+
+  # Sqlite Database
+  drift: ^2.26.1
+  sqlite3_flutter_libs: ^0.5.33
+  path_provider: ^2.1.5
+  path: ^1.9.1
+
+  # Color Picker
+  flex_color_picker: ^3.7.1
 
 dev_dependencies:
   flutter_test:
@@ -72,6 +83,8 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^5.0.0
+  drift_dev: ^2.26.1
+  build_runner: ^2.4.15
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

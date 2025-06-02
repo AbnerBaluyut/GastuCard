@@ -13,6 +13,7 @@ extension DateExtension on DateTime {
   String get toFullDate => DateFormat('EEEE, MMMM d, yyyy').format(this);
   String get toTime12h => DateFormat('hh:mm a').format(this);
   String get toTime24h => DateFormat('HH:mm').format(this);
+  String get toDM => DateFormat('MMM dd').format(this);
 
   bool get isToday {
     final now = DateTime.now();
