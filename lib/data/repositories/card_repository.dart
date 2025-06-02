@@ -1,7 +1,7 @@
 import 'package:gastu_card/core/services/database/app_database.dart';
 
 abstract class CardRepository {
-  Stream<List<Card>> getCards();
+  Future<List<Card>> getCards();
   Future<void> addCard(CardsCompanion card);
   Future<int> deleteCard({required int id});
 }
@@ -19,7 +19,7 @@ class CardRepositoryImpl implements CardRepository {
   Future<void> addCard(CardsCompanion card) => db.into(db.cards).insert(card);
 
   @override
-  Stream<List<Card>> getCards() => db.select(db.cards).watch();
+  Future<List<Card>> getCards() => db.select(db.cards).get();
 
   @override
   Future<int> deleteCard({required int id}) {

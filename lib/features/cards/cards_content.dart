@@ -32,6 +32,8 @@ class _CardsContentState extends State<_CardsContent> with AutomaticKeepAliveCli
 
   final List<db.Card> _cards = <db.Card>[];
 
+  db.Card? _card;
+
   @override
   void initState() {
     context.read<CardsBloc>().add(GetCardsEvent());
@@ -45,16 +47,13 @@ class _CardsContentState extends State<_CardsContent> with AutomaticKeepAliveCli
       listener: (context, state) {
 
         if (state is LoadingCardsState) {
-          if (state.isLoading) {
-            context.showLoadingDialog();
-          } else {
-            context.dismissDialog();
-          }
+          context.showLoadingDialog();
         }
       },
       builder: (context, state) {
 
         if (state is GetCardsState) {
+          context.dismissDialog();
           _cards..clear()..addAll(state.cards);
         }
 
@@ -64,12 +63,17 @@ class _CardsContentState extends State<_CardsContent> with AutomaticKeepAliveCli
               Dimension.spacingMedium.height(),
               CardsSection(
                 cards: _cards,
+                onCardChanged: (card) {
+                  setState(() {
+                    _card = card;
+                  });
+                },
               ),
               Dimension.spacingLarge.height(),
-              MonthlySummarySection(
-                statementDate: DateTime.now(),
-                paymentDueDate: DateTime.now(),
-                totalDue: 16000,
+              if (_cards.isNotEmpty) MonthlySummarySection(
+                statementDay: _card?.statementDueDate.day ?? _cards.first.statementDueDate.day,
+                paymentDay: _card?.paymentDueDate.day ?? _cards.first.paymentDueDate.day,
+                totalDue: 0,
               ),
               Dimension.spacingLarge.height(),
               RecentTransactionsSection(),

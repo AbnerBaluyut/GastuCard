@@ -2,20 +2,44 @@ import 'package:flutter/material.dart';
 import 'package:gastu_card/core/utils/extensions/date_ext.dart';
 import 'package:gastu_card/core/utils/extensions/double_ext.dart';
 import 'package:gastu_card/core/utils/extensions/num_ext.dart';
-
 import '../../../app/styles/dimension.dart';
 
-class MonthlySummarySection extends StatelessWidget {
+class MonthlySummarySection extends StatefulWidget {
   const MonthlySummarySection({
     super.key,
-    required this.statementDate,
-    required this.paymentDueDate,
+    required this.statementDay,
+    required this.paymentDay,
     this.totalDue = 0
   });
 
-  final DateTime statementDate;
-  final DateTime paymentDueDate;
+  final int statementDay;
+  final int paymentDay;
   final double totalDue;
+
+  @override
+  State<StatefulWidget> createState() => _MonthlySummarySectionState();
+}
+
+class _MonthlySummarySectionState extends State<MonthlySummarySection> {
+
+  DateTime getCurrentStatementEndDate(DateTime today, int statementDay) {
+    final thisMonthStatement = DateTime(today.year, today.month, statementDay);
+    if (today.isBefore(thisMonthStatement)) {
+      return thisMonthStatement;
+    } else {
+      return DateTime(today.year, today.month + 1, statementDay);
+    }
+  }
+
+  DateTime getPreviousPaymentDueDate(DateTime statementEndDate, int paymentDay) {
+    final prevMonth = DateTime(statementEndDate.year, statementEndDate.month - 1);
+    final daysInMonth = DateUtils.getDaysInMonth(prevMonth.year, prevMonth.month);
+    final safeDay = paymentDay <= daysInMonth ? paymentDay : daysInMonth;
+    return DateTime(prevMonth.year, prevMonth.month, safeDay);
+  }
+
+  DateTime get currentStatementDate => getCurrentStatementEndDate(DateTime.now(), widget.statementDay);
+  DateTime get dueDate => getPreviousPaymentDueDate(currentStatementDate, widget.paymentDay);
 
   @override
   Widget build(BuildContext context) {
@@ -40,9 +64,9 @@ class MonthlySummarySection extends StatelessWidget {
               ),
             ),
             Dimension.spacingMedium.height(),
-            _buildSummaryRow(Icons.receipt_long, "Statement Due", statementDate.format(pattern: "MMM dd, yyyy")),
-            _buildSummaryRow(Icons.event, "Payment Due", statementDate.format(pattern: "MMM dd, yyyy")),
-            _buildSummaryRow(Icons.account_balance_wallet, "Total Due", totalDue.toCurrency()),
+            _buildSummaryRow(Icons.receipt_long, "Statement Date", currentStatementDate.format(pattern: "MMM dd, yyyy")),
+            _buildSummaryRow(Icons.event, "Payment Due Date", dueDate.format(pattern: "MMM dd, yyyy")),
+            _buildSummaryRow(Icons.account_balance_wallet, "Total Balance Due", widget.totalDue.toCurrency()),
           ],
         ),
       ),

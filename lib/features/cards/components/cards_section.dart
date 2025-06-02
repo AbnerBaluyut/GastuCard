@@ -1,8 +1,10 @@
 import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gastu_card/app/styles/dimension.dart';
 import 'package:gastu_card/core/utils/extensions/double_ext.dart';
 import 'package:gastu_card/core/utils/extensions/string_ext.dart';
+import 'package:gastu_card/features/cards/bloc/cards_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -14,8 +16,9 @@ import '../../../shared/widgets/common_elevated_button.dart';
 
 
 class CardsSection extends StatefulWidget {
-  const CardsSection({super.key, required this.cards});
+  const CardsSection({super.key, required this.cards, required this.onCardChanged});
   final List<db.Card> cards;
+  final Function(db.Card card) onCardChanged;
   @override
   State<StatefulWidget> createState() => _CardsSectionState();
 }
@@ -25,6 +28,13 @@ class _CardsSectionState extends State<CardsSection> {
   final PageController _pageController = PageController(
     viewportFraction: 0.87
   );
+
+  void _goToAddNewCard(VoidCallback callback) async {
+    final isSuccess = await context.push<bool>(AppRoutes.addCard);
+    if (isSuccess ?? false) {
+      callback.call();
+    }
+  }
   
   @override
   Widget build(BuildContext context) {
@@ -35,6 +45,9 @@ class _CardsSectionState extends State<CardsSection> {
           height: 210,
           child: PageView.builder(
             controller: _pageController,
+            onPageChanged: (value) {
+              widget.onCardChanged.call(widget.cards[value]);
+            },
             itemBuilder: (context, index) {     
               var card = widget.cards[index];
               return AnimatedBuilder(
@@ -74,7 +87,11 @@ class _CardsSectionState extends State<CardsSection> {
         if (widget.cards.length > 1) Dimension.spacingMedium.height(),
         CommonElevatedButton(
           backgroundColor: Colors.teal.shade900,
-          onButtonPressed: () => context.push(AppRoutes.addCard),
+          onButtonPressed: () {
+            _goToAddNewCard(() {
+              context.read<CardsBloc>().add(GetCardsEvent());
+            });
+          },
           borderRadius: BorderRadius.circular(100.0),
           padding: EdgeInsets.symmetric(
             horizontal: Dimension.paddingMedium

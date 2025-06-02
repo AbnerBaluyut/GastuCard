@@ -65,7 +65,7 @@ class _AddCardPageState extends State<AddCardPage> {
             title: "You've successfully added new card",
             onButtonPressed: () {
               while (context.canPop()) {
-                context.pop();
+                context.pop(true);
               } 
             },
           );

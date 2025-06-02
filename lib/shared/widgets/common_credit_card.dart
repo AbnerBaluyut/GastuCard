@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gastu_card/core/utils/extensions/double_ext.dart';
 import 'package:gastu_card/core/utils/extensions/num_ext.dart';
 
 import '../../app/styles/dimension.dart';
-import '../../features/cards/bloc/cards_bloc.dart';
 import '../constants/enums/credit_card_network_enum.dart';
 
 class CommonCreditCard extends StatelessWidget {
@@ -30,7 +28,7 @@ class CommonCreditCard extends StatelessWidget {
   Widget build(BuildContext context) {
     
     return GestureDetector(
-      onTap: () => context.read<CardsBloc>().add(DeleteCardEvent(id)),
+      onTap: () {},
       child: Card(
         elevation: Dimension.elevationMedium,
         color: backgroundColor,

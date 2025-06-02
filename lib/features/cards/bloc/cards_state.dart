@@ -10,12 +10,7 @@ final class InitialState extends CardsState {}
 
 
 // Cards
-final class LoadingCardsState extends CardsState {
-  final bool isLoading;
-  const LoadingCardsState({required this.isLoading});
-  @override
-  List<Object?> get props => [isLoading];
-}
+final class LoadingCardsState extends CardsState {}
 final class GetCardsState extends CardsState {
   final List<Card> cards;
   const GetCardsState({required this.cards});
